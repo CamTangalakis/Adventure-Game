@@ -1,6 +1,9 @@
-const { rooms, items } = require('../data/world-data')
+// const { rooms, items } = require('../data/world-data')
+const {Food} = require('./food');
+const {Room} = require('./room');
+// const {addItem, removeItem} = require('./room');
 
-class Player {
+class Player /*extend Character*/{
 
     constructor(name, startingRoom) {
         this.name = name;
@@ -27,27 +30,32 @@ class Player {
             console.log(`${this.name} is not carrying anything.`);
         } else {
             console.log(`${this.name} is carrying:`);
-            for (let i = 0 ; i < this.items.length ; i++) {
-                // console.log(this.items);
+            for (let i = 0; i < this.items.length; i++) {
                 console.log(`  ${this.items[i].name}`);
             }
         }
     }
 
     takeItem(itemName) {
-
-        this.items.push(itemName);
-        console.log(`You picked up ${itemName}`);
-
+        let item = this.currentRoom.getItemByName(itemName);
+        let index = this.items.indexOf(itemName);
+        if(item){
+            this.items.push(item);
+            // this.removeItem(item);
+            console.log(`You picked up ${itemName}`);
+            // console.log(this.items);
+        }
     }
 
     dropItem(itemName) {
+        let item = this.currentRoom.getItemByName(itemName);
         let index = this.items.indexOf(itemName);
 
-        if (index === -1) {
+        if (this.items.length === 0) {
             console.log(`You do not have ${itemName}`)
         } else {
             this.items.splice(index, 1);
+            // this.addItem(item);
             console.log(`You have dropped ${itemName}`)
         }
     }
@@ -59,30 +67,18 @@ class Player {
         } else {
             console.log('You cannot eat that');
         }
-
     }
 
     getItemByName(name) {
-        // loop over items array
-        // find item in items array
-        // remove from items array
-        // return removed item
-        let remove;
-        let index;
-
-        this.items.forEach((item, i) => {
-            if (item === name) {
-                remove = name;
-                index = i;
+        for(let i=0; i<this.items.length; i++){
+            let item = this.items[i];
+            if (item.name === name) {
+                return this.items.splice(i, 1)[0];
             }
-        });
-        
-        this.items.splice(index, 1);
-
-        return remove;
+        }
     }
 }
 
 module.exports = {
-  Player,
+    Player,
 };

@@ -47,8 +47,22 @@ class Room {
     }
 
     getItemByName(name) {
+        // console.log(this.items, "room")
+        for(let i=0; i<this.items.length; i++){
+            let item = this.items[i];
+            if (item.name === name) {
+                return this.items.splice(i, 1)[0];
+            }
+        }
+    }
 
-        return item(this.name[name]);    
+    addItem(name){
+        this.items.push(name)
+    }
+
+    removeItem(name){
+        let index = his.items.indexOf(name);
+        this.items.splice(index,1);
     }
 
 }
