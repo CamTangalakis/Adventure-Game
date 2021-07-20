@@ -1,3 +1,6 @@
+const { Player } = require('./player')
+const { Item } = require('./item')
+
 class Room {
 
     constructor(name, description) {
@@ -45,7 +48,7 @@ class Room {
 
     getItemByName(name) {
 
-        // Fill this in
+        return item(this.name[name]);    
     }
 
 }

@@ -1,3 +1,5 @@
+const { rooms, items } = require('../data/world-data')
+
 class Player {
 
     constructor(name, startingRoom) {
@@ -26,6 +28,7 @@ class Player {
         } else {
             console.log(`${this.name} is carrying:`);
             for (let i = 0 ; i < this.items.length ; i++) {
+                // console.log(this.items);
                 console.log(`  ${this.items[i].name}`);
             }
         }
@@ -33,23 +36,50 @@ class Player {
 
     takeItem(itemName) {
 
-        // Fill this in
+        this.items.push(itemName);
+        console.log(`You picked up ${itemName}`);
 
     }
 
     dropItem(itemName) {
+        let index = this.items.indexOf(itemName);
 
-        // Fill this in
+        if (index === -1) {
+            console.log(`You do not have ${itemName}`)
+        } else {
+            this.items.splice(index, 1);
+            console.log(`You have dropped ${itemName}`)
+        }
     }
 
     eatItem(itemName) {
-        // Fill this in
+        if (itemName.isFood) {
+            dropItem(itemName);
+            console.log(`You ate ${itemName}.`);
+        } else {
+            console.log('You cannot eat that');
+        }
 
     }
 
     getItemByName(name) {
+        // loop over items array
+        // find item in items array
+        // remove from items array
+        // return removed item
+        let remove;
+        let index;
 
-        // Fill this in
+        this.items.forEach((item, i) => {
+            if (item === name) {
+                remove = name;
+                index = i;
+            }
+        });
+        
+        this.items.splice(index, 1);
+
+        return remove;
     }
 }
 
