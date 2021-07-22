@@ -8,6 +8,18 @@ const { World } = require("../class/world")
 
 const worldData = require('../data/world-data')
 
+
+//Cam's goal : create magic items that cause damage to enemies/heal player
+//child of item
+//player/enemy health system
+//items affects health systems
+
+//Lakshmi's goal : create shop to buy/sell items using gold
+//child of room
+//item values
+//gold value system
+//shop list / inventory list to buy&sell from
+
 describe ('Item', function () {
 
   it('should have name and description attributes', function () {
