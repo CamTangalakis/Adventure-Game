@@ -1,10 +1,9 @@
-// class Character {
+class Character {
 
-//     constructor(name, startingRoom) {
-//         this.name = name;
-//         this.currentRoom = startingRoom;
-//     }
-// }
+    constructor(name, startingRoom) {
+        this.name = name;
+        this.currentRoom = startingRoom;
+    }
+}
 
-
-
+module.exports = {Character}

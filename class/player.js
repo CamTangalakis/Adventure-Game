@@ -1,14 +1,17 @@
 // const { rooms, items } = require('../data/world-data')
-const {Food} = require('./food');
-const {Room} = require('./room');
+const { Food } = require('./food');
+const { Room } = require('./room');
+const { Character } = require('./character')
+const {Item} = require('./item');
 // const {addItem, removeItem} = require('./room');
 
-class Player /*extend Character*/{
+class Player {
 
-    constructor(name, startingRoom) {
+    constructor(name, startingRoom, health = 10) {
         this.name = name;
         this.currentRoom = startingRoom;
         this.items = [];
+        this.health = health;
     }
 
     move(direction) {
@@ -39,7 +42,7 @@ class Player /*extend Character*/{
     takeItem(itemName) {
         let item = this.currentRoom.getItemByName(itemName);
         let index = this.items.indexOf(itemName);
-        if(item){
+        if (item) {
             this.items.push(item);
             // this.removeItem(item);
             console.log(`You picked up ${itemName}`);
@@ -70,11 +73,30 @@ class Player /*extend Character*/{
     }
 
     getItemByName(name) {
-        for(let i=0; i<this.items.length; i++){
+        for (let i = 0; i < this.items.length; i++) {
             let item = this.items[i];
             if (item.name === name) {
                 return this.items.splice(i, 1)[0];
             }
+        }
+    }
+
+    takeDamage(damage) {
+        return this.health -= damage;
+    }
+
+    healDamage(heal) {
+        return this.health += heal;
+    }
+
+    attackEnemy(damage, enemy) {
+
+    }
+
+    useMagicItem(action, damage, enemy) {
+        if (item.isMagic) {
+            if (action === 'heal') return this.healDamage(damage);
+            else if (action === 'attack') return this.attackEnemy(damage, enemy)
         }
     }
 }
