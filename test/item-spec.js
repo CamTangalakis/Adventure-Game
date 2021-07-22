@@ -4,13 +4,14 @@ const {Player} = require("../class/player.js");
 const {Room} = require("../class/room.js");
 const {Item} = require("../class/item.js");
 const {Food} = require("../class/food.js");
-const { World } = require("../class/world")
+const {World} = require("../class/world.js")
+const {Character} = require("../class/character.js")
+const {Enemy} = require("../class/enemy.js")
 
 const worldData = require('../data/world-data')
 
 
 //Cam's goal : create magic items that cause damage to enemies/heal player
-//child of item
 //player/enemy health system
 //items affects health systems
 
@@ -27,10 +28,26 @@ describe('Player', function(){
     expect(person.health).to.equal(10);
   });
 
-  it('can take damage', function(){
+  it('can take damage and heal', function(){
     let person = new Player;
 
-    expect(person.takeDamage(2).to.equal(8))
+    expect(person.takeDamage(2)).to.equal(8)
+    expect(person.healDamage(2)).to.equal(12)
+  });
+
+  it('should use magic item', function (){
+    let person = new Player
+    person.useMagicItem(heal, 2)
+
+    expect(person.health).to.equal(12)
+  });
+
+  it('should damage enemy when using magic item', function(){
+    let person = new Player;
+    let goblin = new Enemy;
+    person.useMagicItem(attack, 2, goblin);
+
+    expect(goblin.health).to.equal(3);
   });
 });
 

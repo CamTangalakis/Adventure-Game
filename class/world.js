@@ -1,7 +1,7 @@
 const { Room } = require('./room');
 const { Item } = require('./item');
 const { Food } = require('./food');
-const { rooms, items} = require('../data/world-data')
+const {rooms, items} = require('../data/world-data')
 
 class World {
     constructor() {

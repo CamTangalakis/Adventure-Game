@@ -1,14 +1,23 @@
-// class Enemy extends Character {
+const {Character} = require('./character')
 
-//     constructor(name, startingRoom) {
-//         this.name = name;
-//         this.currentRoom = startingRoom;
-//     }
+class Enemy {
 
-//     actions (action, time){
-//         setTimeout(action, time);
-//     }
-// }
+    constructor(name, startingRoom, health = 5) {
+        this.name = name;
+        this.currentRoom = startingRoom;
+        this.health = health
+    }
+
+    actions (action, time){
+        setTimeout(action, time);
+    }
+
+    takeDamage(damage){
+        return this.health -= damage
+    }
+}
+
+module.exports = {Enemy}
 
 
 // actions(function(){console.log("The goblin scratches its nose")}, 3000);
