@@ -177,3 +177,76 @@ describe ('Food', function () {
 
 
 });
+
+//Lakshmi's goal : create shop to buy/sell items using gold
+//child of room
+//item values
+//gold value system
+//shop list / inventory list to buy&sell from
+
+//_________________________________________________________________________
+
+//1.the shop has a pre-populated array of items available in the shop
+//2.if the player buys an item, it is removed from the array
+//3.if the player sells an item, it is included in the array
+//4.if the player tries to buy an item that is not avaible in shop, display message 	//"Item currently not available"
+//___________________________________________________________________________
+
+//SHOP TEST SPEC
+
+describe ('Shop', function () {
+
+  it('should have items in its inventory', function () {
+
+    let itemCount = Shop.items.length;
+	let itemsExist = itemCount > 0;
+
+    expect(itemsExist).to.be.true;
+
+  });
+
+it('should store items in inventory', function () {
+   //player should have a function called buyItems
+	//should pass in the item to be bought
+	//shop should remove new item from inventory
+	//new item should be pushed to player's inventory
+
+	let player1 = new Player('Cam');
+	let inventory = Shop.items;
+
+	player1.buyItems('map');
+
+	expect(player.items).to.include('map');
+	expect(inventory).to.not.include('map');
+  });
+
+ it('should store items in inventory', function () {
+
+   //player should have a function called sellItems
+	//should pass in the item to be sold
+	//sold item should be removed from player's inventory
+	//shop should push new item to inventory
+
+	let player1 = new Player('Cam');
+	let inventory = Shop.items;
+
+	player1.sellItems('bag');
+
+	expect(inventory).to.include('bag');
+	expect(player.items).to.not.include('bag');
+  });
+
+it('should display error message for unavailable items', function () {
+
+   //player should have a function called buyItems
+	//should pass in the item to be bought
+	//display error message
+
+	let player1 = new Player('Cam');
+	let inventory = Shop.items;
+
+	let result = player1.buyItems('dagger');
+
+	expect(result).to.equal.('Item not available');
+  });
+});
