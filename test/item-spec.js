@@ -20,7 +20,19 @@ const worldData = require('../data/world-data')
 //gold value system
 //shop list / inventory list to buy&sell from
 
-describe()
+describe('Player', function(){
+  it('should have health attribute', function(){
+    let person = new Player;
+
+    expect(person.health).to.equal(10);
+  });
+
+  it('can take damage', function(){
+    let person = new Player;
+
+    expect(person.takeDamage(2).to.equal(8))
+  });
+});
 
 describe ('Item', function () {
   it('should have items with magical attributes', function(){

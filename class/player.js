@@ -5,10 +5,11 @@ const {Room} = require('./room');
 
 class Player /*extend Character*/{
 
-    constructor(name, startingRoom) {
+    constructor(name, startingRoom, health = 10) {
         this.name = name;
         this.currentRoom = startingRoom;
         this.items = [];
+        this.health = health;
     }
 
     move(direction) {
@@ -76,6 +77,14 @@ class Player /*extend Character*/{
                 return this.items.splice(i, 1)[0];
             }
         }
+    }
+
+    takeDamage(damage) {
+        this.health -= damage;
+    }
+
+    healDamage(heal) {
+        this.health += heal;
     }
 }
 
