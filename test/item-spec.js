@@ -33,12 +33,15 @@ describe('Player', function () {
     let person = new Player('Link', 'a little green hero');
 
     expect(person.takeDamage(2)).to.equal(8)
-    expect(person.healDamage(2)).to.equal(12)
+    expect(person.healDamage(2)).to.equal(10) //#was 12
+    //#but player took 2 damage on line 34, so health = 8
+    //#when player heals 2, health = 8 + 2 = 10
   });
 
   it('should use magic item', function () {
     let person = new Player('Link', 'a little green hero')
-    person.useMagicItem(heal, 2)
+    let item = new Item('potion', 'heals damage', 1, false, true);//#added magic item
+    person.useMagicItem(item,'heal', 2)//#added item1; enclosed heal in ''
 
     expect(person.health).to.equal(12)
   });
@@ -46,7 +49,8 @@ describe('Player', function () {
   it('should damage enemy when using magic item', function () {
     let person = new Player('Link', 'a little green hero');
     let goblin = new Enemy('ganondorf', 'an evil dude');
-    person.useMagicItem(attack, 2, goblin);
+    let item = new Item('wand', 'a magic wand', 1, false, true); //#added magic item
+    person.useMagicItem(item, 'attack', 2, goblin); //#added item; enclosed attack in ''
 
     expect(goblin.health).to.equal(3);
   });

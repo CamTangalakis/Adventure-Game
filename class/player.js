@@ -5,6 +5,7 @@ const { Character } = require('./character')
 const {Item} = require('./item');
 const {Shop} = require('./shop');
 const {buyItems, sellItems} = require('./shop');
+const {Enemy} = require('./enemy'); //#imported enemy module
 // const {addItem, removeItem} = require('./room');
 
 class Player {
@@ -92,10 +93,10 @@ class Player {
     }
 
     attackEnemy(damage, enemy) {
-
+        return enemy.takeDamage(damage); //#
     }
 
-    useMagicItem(action, damage, enemy) {
+    useMagicItem(item, action, damage, enemy) { //#added item
         if (item.isMagic) {
             if (action === 'heal') return this.healDamage(damage);
             else if (action === 'attack') return this.attackEnemy(damage, enemy)
