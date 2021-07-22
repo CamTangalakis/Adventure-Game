@@ -1,12 +1,13 @@
 const { expect } = require('chai');
 
-const {Player} = require("../class/player.js");
-const {Room} = require("../class/room.js");
-const {Item} = require("../class/item.js");
-const {Food} = require("../class/food.js");
-const {World} = require("../class/world.js")
-const {Character} = require("../class/character.js")
-const {Enemy} = require("../class/enemy.js")
+const { Player } = require("../class/player.js");
+const { Room } = require("../class/room.js");
+const { Item } = require("../class/item.js");
+const { Food } = require("../class/food.js");
+const { World } = require("../class/world.js")
+const { Character } = require("../class/character.js")
+const { Enemy } = require("../class/enemy.js")
+const { Shop } = require("../class/shop.js")
 
 const worldData = require('../data/world-data')
 
@@ -21,38 +22,38 @@ const worldData = require('../data/world-data')
 //gold value system
 //shop list / inventory list to buy&sell from
 
-describe('Player', function(){
-  it('should have health attribute', function(){
-    let person = new Player;
+describe('Player', function () {
+  it('should have health attribute', function () {
+    let person = new Player('Link', 'a little green hero');
 
     expect(person.health).to.equal(10);
   });
 
-  it('can take damage and heal', function(){
-    let person = new Player;
+  it('can take damage and heal', function () {
+    let person = new Player('Link', 'a little green hero');
 
     expect(person.takeDamage(2)).to.equal(8)
     expect(person.healDamage(2)).to.equal(12)
   });
 
-  it('should use magic item', function (){
-    let person = new Player
+  it('should use magic item', function () {
+    let person = new Player('Link', 'a little green hero')
     person.useMagicItem(heal, 2)
 
     expect(person.health).to.equal(12)
   });
 
-  it('should damage enemy when using magic item', function(){
-    let person = new Player;
-    let goblin = new Enemy;
+  it('should damage enemy when using magic item', function () {
+    let person = new Player('Link', 'a little green hero');
+    let goblin = new Enemy('ganondorf', 'an evil dude');
     person.useMagicItem(attack, 2, goblin);
 
     expect(goblin.health).to.equal(3);
   });
 });
 
-describe ('Item', function () {
-  it('should have items with magical attributes', function(){
+describe('Item', function () {
+  it('should have items with magical attributes', function () {
     let item = new Item('wand', 'a magic wand', 1, false, true);
 
     expect(item.isMagic).to.equal(true);
@@ -128,7 +129,7 @@ describe ('Item', function () {
 
   });
 
-  it('a rock should exist within the Crossroad', function() {
+  it('a rock should exist within the Crossroad', function () {
     let world = new World();
     world.loadWorld(worldData);
 
@@ -141,7 +142,7 @@ describe ('Item', function () {
 });
 
 
-describe ('Food', function () {
+describe('Food', function () {
 
 
   it('should have name and description attributes', function () {
@@ -195,7 +196,7 @@ describe ('Food', function () {
     expect(player.items.length).to.equal(1);
   });
 
-  it('a sandwich should exist at the Northern point', function() {
+  it('a sandwich should exist at the Northern point', function () {
     let world = new World();
     world.loadWorld(worldData);
 
@@ -223,59 +224,59 @@ describe ('Food', function () {
 
 //SHOP TEST SPEC
 
-describe ('Shop', function () {
+describe('Shop', function () {
 
   it('should have items in its inventory', function () {
-
-    let itemCount = Shop.items.length;
-	let itemsExist = itemCount > 0;
+    let newShop = new Shop('shop', 'sells things')
+    let itemCount = newShop.items.length;
+    let itemsExist = itemCount > 0;
 
     expect(itemsExist).to.be.true;
 
   });
 
-it('should store items in inventory', function () {
-   //player should have a function called buyItems
-	//should pass in the item to be bought
-	//shop should remove new item from inventory
-	//new item should be pushed to player's inventory
+  it('should store items in inventory', function () {
+    //player should have a function called buyItems
+    //should pass in the item to be bought
+    //shop should remove new item from inventory
+    //new item should be pushed to player's inventory
+    let newShop = new Shop('shop', 'sells things')
+    let player1 = new Player('Cam');
+    let inventory = newShop.items;
 
-	let player1 = new Player('Cam');
-	let inventory = Shop.items;
+    player1.buyItems('map');
 
-	player1.buyItems('map');
-
-	expect(player.items).to.include('map');
-	expect(inventory).to.not.include('map');
+    expect(player1.items).to.include('map');
+    expect(inventory).to.not.include('map');
   });
 
- it('should store items in inventory', function () {
+  it('should store items in inventory', function () {
 
-   //player should have a function called sellItems
-	//should pass in the item to be sold
-	//sold item should be removed from player's inventory
-	//shop should push new item to inventory
+    //player should have a function called sellItems
+    //should pass in the item to be sold
+    //sold item should be removed from player's inventory
+    //shop should push new item to inventory
+    let newShop = new Shop('shop', 'sells things')
+    let player1 = new Player('Cam');
+    let inventory = newShop.items;
 
-	let player1 = new Player('Cam');
-	let inventory = Shop.items;
+    player1.sellItems('bag');
 
-	player1.sellItems('bag');
-
-	expect(inventory).to.include('bag');
-	expect(player.items).to.not.include('bag');
+    expect(inventory).to.include(['bag']);
+    expect(player1.items).to.not.include('bag');
   });
 
-it('should display error message for unavailable items', function () {
+  it('should display error message for unavailable items', function () {
 
-   //player should have a function called buyItems
-	//should pass in the item to be bought
-	//display error message
+    //player should have a function called buyItems
+    //should pass in the item to be bought
+    //display error message
+    let newShop = new Shop('shop', 'sells things')
+    let player1 = new Player('Cam');
+    let inventory = newShop.items;
 
-	let player1 = new Player('Cam');
-	let inventory = Shop.items;
+    let result = player1.buyItems('dagger');
 
-	let result = player1.buyItems('dagger');
-
-	expect(result).to.equal.('Item not available');
+    expect(result).to.equal('Item not available');
   });
 });

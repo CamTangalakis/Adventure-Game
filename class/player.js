@@ -3,6 +3,8 @@ const { Food } = require('./food');
 const { Room } = require('./room');
 const { Character } = require('./character')
 const {Item} = require('./item');
+const {Shop} = require('./shop');
+const {buyItems, sellItems} = require('./shop');
 // const {addItem, removeItem} = require('./room');
 
 class Player {
@@ -98,6 +100,19 @@ class Player {
             if (action === 'heal') return this.healDamage(damage);
             else if (action === 'attack') return this.attackEnemy(damage, enemy)
         }
+    }
+
+    //create instance of shop methods
+    buyItems(item){
+        let shopSells = new Shop('magic shop', 'sells magic things')
+        this.items.push(item);
+        shopSells.sellItems(item);
+    }
+
+    sellItems(item){
+        let shopBuys = new Shop('magic shop', 'sells magic things')
+        this.getItemByName(item);
+        shopBuys.buyItems(item);
     }
 }
 
